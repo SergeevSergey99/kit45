@@ -1,0 +1,62 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: pink;
+}
+
+.App-header {
+    width: 100%;
+    height: 20%;
+    background: #ddd;
+    font-size: 40px;
+    text-align: center;
+}
+
+.App-main {
+    width: 100%;
+    height: 60%;
+    background: #ccc;
+    display: flex;
+    flex-direction: row;
+}
+
+.App-main-content {
+    width: 60%;
+    height: 100%;
+    background: #aaa;
+}
+
+.App-main-leftside,
+.App-main-rightside {
+    width: 20%;
+    height: 100%;
+    background: #eee;
+}
+
+.App-main-content-signal {
+    width: 50%;
+    height: 50%;
+    background: #bbb;
+    margin: 10% 0 0 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Signal {
+    margin-left: 5%;
+    height: 30%;
+}
+
+.Signal:last-child {
+    margin-bottom: 5%;
+}
+
+.Signal:first-child {
+    margin-top: 5%;
+}
