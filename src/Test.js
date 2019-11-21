@@ -1,8 +1,28 @@
-import React, { useState, useEffect } from 'react';
+//import React, { useState, useEffect } from 'react';
 import "./ResetBrowser.css";
 import "./Test.css";
 
-
+let a = 0;
+/**
+ * @return {string}
+ */
+function Rand_of_var(variant) {
+    let signal = "";
+    for (let i = 0; i < 16; i++)
+        signal += sfc32(variant + i) % 2 + "";
+    a = 0;
+    return signal;
+}
+function sfc32(_a) {
+    a +=_a;
+    a = Math.abs(Math.sin(a)) * 10000;
+    return Math.floor(a);
+}
+/*
+function JCreg() {
+    return;
+}*/
+var v = 0;
 const Test = () => {
 
     return (
@@ -14,8 +34,8 @@ const Test = () => {
                <div className="App-main-leftside">Лево</div>
                 <div className="App-main-content">
                     <div className="App-main-content-signal">
-                        <div className="Signal">Сигнал 1</div>
-                        <div className="Signal">Сигнал 2</div>
+                        <div className="Signal">{Rand_of_var(v)}</div>
+                        <div className="Signal">{v}</div>
                         <div className="Signal">Сигнал 3</div>
                     </div>
                 </div>
@@ -24,5 +44,4 @@ const Test = () => {
         </div>
     );
 };
-
 export default Test;
