@@ -38,6 +38,22 @@ function draw_JK(ctx, x, y, w, h, padding, inv) {
         ctx.lineTo(x,           y+i*h/10);
         ctx.fillText(" S C J K R "[i], x+padding, y+i*h/10)
     }
+    if (inv[1]) { // drawing clock signal direction, up or down
+        ctx.moveTo(x - padding / 2, y + h/2 + padding/2);
+        ctx.lineTo(x + padding / 2, y + h/2 - padding/2);
+    }
+    else {
+        ctx.moveTo(x - padding / 2, y + h/2 - padding/2);
+        ctx.lineTo(x + padding / 2, y + h/2 + padding/2);
+    }
+    if (inv[0]) {
+        ctx.moveTo(x + padding/2, y + h/10);
+        ctx.arc(x, y + h/10, padding/2, 0, 7);
+    }
+    if (inv[2]) {
+        ctx.moveTo(x + padding/2, y + 9 * h/10);
+        ctx.arc(x, y + 9 * h/10, padding/2, 0, 7);
+    }
     ctx.stroke();
 }
 
