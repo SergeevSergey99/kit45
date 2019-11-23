@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./ResetBrowser.css";
 import "./Test.css";
-import {draw_rect_signal} from "./draw_functions.js";
+import {draw_rect_signal, draw_JK} from "./draw_functions.js";
 import {jk_array} from "./jk.js";
 import {generate_nonrandom} from "./generator.js";
 
@@ -42,11 +42,12 @@ const Test = () => {
     useEffect(() => {
         var cnv = document.querySelector("#cnv");
         cnv.width = cnv.parentNode.offsetWidth;
-        console.log(cnv.parentNode);
         cnv.height = cnv.parentNode.offsetHeight;
         let ctx = cnv.getContext("2d");
-        draw_rect_signal(ctx, 20.5, 20.5, 320, 10, Rand_of_var(variant + 0**2));
-        draw_rect_signal(ctx, 20.5, 50, 320, 10, Rand_of_var(variant + 1**2));
+        for (var i = 0; i < 4; i++) {
+            draw_rect_signal(ctx, 20.5, 20.5 + i * 30, 320, 10, Rand_of_var(variant + i**2)); 
+        }
+        draw_JK(ctx, 350.5, 20.5, 40, 100, 10, [true, false, true]);
     })
     
     return (
