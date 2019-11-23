@@ -2,13 +2,13 @@
 // ctx is 2d context,
 // x, y, w, h -- coords and size,
 // signal -- array of 0s and 1s
-function draw_rect_signal(ctx, x, y, w, h, signal) {
-    delta_x = w / signal.length;
-    level = [y + h, y];
-    level_last = 0;
+export function draw_rect_signal(ctx, x, y, w, h, signal) {
+    var delta_x = w / signal.length;
+    var level = [y + h, y];
+    var level_last = 0;
     ctx.beginPath();
     ctx.moveTo(x, level[0]);
-    for (i = 0; i < signal.length; i++) {
+    for (var i = 0; i < signal.length; i++) {
         ctx.lineTo(x, level[level_last]);
         ctx.lineTo(x, level[signal[i]]);
         x += delta_x;
@@ -25,7 +25,7 @@ function draw_rect_signal(ctx, x, y, w, h, signal) {
 //  [s, c, r],
 //  each elements tells wether this input should be inverted
 //  TODO add possibility to reorder inputs, fix line inside circle
-function draw_JK(ctx, x, y, w, h, padding, inv) {
+export function draw_JK(ctx, x, y, w, h, padding, inv) {
     ctx.beginPath();
     ctx.rect(x, y,        w,    h);
     ctx.rect(x, y + h/5,  w/2,  3*h/5);
@@ -33,7 +33,7 @@ function draw_JK(ctx, x, y, w, h, padding, inv) {
     ctx.lineTo(x + w/2, y+h);
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    for (i = 1; i < 10; i+=2) {
+    for (var i = 1; i < 10; i+=2) {
         ctx.moveTo(x-padding,   y+i*h/10);
         ctx.lineTo(x,           y+i*h/10);
         ctx.fillText(" S C J K R "[i], x+padding, y+i*h/10)

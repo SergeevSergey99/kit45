@@ -42,10 +42,10 @@ function jk(obj) {
 // but not forbidden,
 // q is initial state
 // returns 0/1 array of stares
-function jk_array(j, k, r, s, c, q, inv_obj) {
-    ans = [];
+export function jk_array(j, k, r, s, c, q, inv_obj) {
+    var ans = [];
     for (i = 0; i < j.length; i++) {
-        obj = {
+        let obj = {
             "r": r[i],
             "s": s[i],
             "j": j[i],
