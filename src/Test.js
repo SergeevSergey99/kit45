@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import "./ResetBrowser.css";
 import "./Test.css";
 import {draw_rect_signal} from "./draw_functions.js";
+import {jk_array} from "./jk.js";
+import {generate_nonrandom} from "./generator.js";
 
 function Rand_of_var(variant) {
     let a = 0;
@@ -29,11 +31,6 @@ const Test = () => {
     const [variant, setVariant] = useState("2");
 
     const submitVariant = e => {
-        var cnv = document.querySelector("#cnv");
-        cnv.width = cnv.width;
-        let ctx = cnv.getContext("2d");
-        draw_rect_signal(ctx, 20.5, 20.5, 320, 10, Rand_of_var(variant + 0**2));
-        draw_rect_signal(ctx, 20.5, 50, 320, 10, Rand_of_var(variant + 1**2));
         e.preventDefault();
     };
 
@@ -41,6 +38,16 @@ const Test = () => {
         setVariant(e.target.value);
         
     };
+
+    useEffect(() => {
+        var cnv = document.querySelector("#cnv");
+        cnv.width = cnv.parentNode.offsetWidth;
+        console.log(cnv.parentNode);
+        cnv.height = cnv.parentNode.offsetHeight;
+        let ctx = cnv.getContext("2d");
+        draw_rect_signal(ctx, 20.5, 20.5, 320, 10, Rand_of_var(variant + 0**2));
+        draw_rect_signal(ctx, 20.5, 50, 320, 10, Rand_of_var(variant + 1**2));
+    })
     
     return (
         <div className="App">
