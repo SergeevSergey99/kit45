@@ -10,22 +10,22 @@ function jk(obj) {
     if (obj.inv_r) obj.r = !obj.r;
     if (obj.inv_s) obj.s = !obj.s;
     if (obj.inv_c) obj.c = -obj.c;
-    if (obj.s & !obj.r) {
+    if (obj.s && !obj.r) {
         return 1;
     }
-    if (obj.r & !obj.s) {
+    if (obj.r && !obj.s) {
         return 0;
     }
-    if (obj.r & obj.s) {
+    if (obj.r && obj.s) {
         return 1;
     }
     if (obj.c < 1) {
         return obj.q;
     }
-    if (!obj.j & !obj.k) {
+    if (!obj.j && !obj.k) {
         return obj.q;
     }
-    if (obj.j & obj.k) {
+    if (obj.j && obj.k) {
         return obj.q? 0 : 1; // "not" but in integer
     }
     if (obj.j) {
