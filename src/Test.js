@@ -34,7 +34,6 @@ const Test = () => {
         let ctx = cnv.getContext("2d");
         draw_rect_signal(ctx, 20.5, 20.5, 320, 10, Rand_of_var(variant + 0**2));
         draw_rect_signal(ctx, 20.5, 50, 320, 10, Rand_of_var(variant + 1**2));
-        ctx.fillText(variant, 40, 70);
         e.preventDefault();
     };
 
