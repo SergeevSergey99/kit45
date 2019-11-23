@@ -44,7 +44,7 @@ function jk(obj) {
 // returns 0/1 array of stares
 export function jk_array(j, k, r, s, c, q, inv_obj) {
     var ans = [];
-    for (i = 0; i < j.length; i++) {
+    for (var i = 0; i < j.length; i++) {
         let obj = {
             "r": r[i],
             "s": s[i],
@@ -59,5 +59,5 @@ export function jk_array(j, k, r, s, c, q, inv_obj) {
         q = jk(obj);
         ans.push(q);
     }
-    return q;
+    return ans;
 }
