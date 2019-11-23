@@ -29,20 +29,20 @@ const Test = () => {
     const [variant, setVariant] = useState("2");
 
     const submitVariant = e => {
-        alert(variant);
+        var cnv = document.querySelector("#cnv");
+        cnv.width = cnv.width;
+        let ctx = cnv.getContext("2d");
+        draw_rect_signal(ctx, 20.5, 20.5, 320, 10, Rand_of_var(variant + 0**2));
+        draw_rect_signal(ctx, 20.5, 50, 320, 10, Rand_of_var(variant + 1**2));
+        ctx.fillText(variant, 40, 70);
         e.preventDefault();
     };
 
     const changeVariant = e => {
         setVariant(e.target.value);
-        let cnv = document.querySelector("#cnv");
-        cnv.width = cnv.width;
-        let ctx = cnv.getContext("2d");
-        draw_rect_signal(ctx, 20.5, 20.5, 320, 10, Rand_of_var(variant + 0**2))
-        draw_rect_signal(ctx, 20.5, 50, 320, 10, Rand_of_var(variant + 1**2))
-
+        
     };
-
+    
     return (
         <div className="App">
             <div className="App-header">
@@ -96,5 +96,3 @@ const Signal = ({value}) => (
 );
 
 export default Test;
-
-
