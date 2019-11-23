@@ -40,12 +40,12 @@ export function draw_JK(ctx, x, y, w, h, padding, inv) {
         ctx.fillText(" S C J K R "[i], x+padding, y+i*h/10)
     }
     if (inv[1]) { // drawing clock signal direction, up or down
-        ctx.moveTo(x - padding / 2, y + h/2 + padding/2);
-        ctx.lineTo(x + padding / 2, y + h/2 - padding/2);
+        ctx.moveTo(x - padding / 2, y + 3*h/10 - padding/2);
+        ctx.lineTo(x + padding / 2, y + 3*h/10 + padding/2);
     }
     else {
-        ctx.moveTo(x - padding / 2, y + h/2 - padding/2);
-        ctx.lineTo(x + padding / 2, y + h/2 + padding/2);
+        ctx.moveTo(x - padding / 2, y + 3*h/10 + padding/2);
+        ctx.lineTo(x + padding / 2, y + 3*h/10 - padding/2);
     }
     if (inv[0]) {
         ctx.moveTo(x + padding/2, y + h/10);
