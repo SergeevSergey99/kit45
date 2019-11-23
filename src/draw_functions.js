@@ -9,10 +9,11 @@ export function draw_rect_signal(ctx, x, y, w, h, signal) {
     ctx.beginPath();
     ctx.moveTo(x, level[0]);
     for (var i = 0; i < signal.length; i++) {
+        var lvl = parseInt(signal[i]);
         ctx.lineTo(x, level[level_last]);
-        ctx.lineTo(x, level[signal[i]]);
+        ctx.lineTo(x, level[lvl]);
         x += delta_x;
-        level_last = signal[i];
+        level_last = lvl;
     }
     ctx.stroke();
 }
