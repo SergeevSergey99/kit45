@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./ResetBrowser.css";
 import "./Test.css";
+import {draw_rect_signal} from "./draw_functions.js";
 
 function Rand_of_var(variant) {
     let a = 0;
@@ -34,6 +35,12 @@ const Test = () => {
 
     const changeVariant = e => {
         setVariant(e.target.value);
+        let cnv = document.querySelector("#cnv");
+        cnv.width = cnv.width;
+        let ctx = cnv.getContext("2d");
+        draw_rect_signal(ctx, 20.5, 20.5, 320, 10, Rand_of_var(variant + 0**2))
+        draw_rect_signal(ctx, 20.5, 50, 320, 10, Rand_of_var(variant + 1**2))
+
     };
 
     return (
@@ -46,10 +53,7 @@ const Test = () => {
                 <div className="App-main-content">
                    <div className="App-main-content-data">
                         <div className="App-main-content-signal">
-                            <Signal value={Rand_of_var(variant + 0**2)}/>
-                            <Signal value={Rand_of_var(variant + 1**2)}/>
-                            <Signal value={Rand_of_var(variant + 2**2)}/>
-                            <Signal value={Rand_of_var(variant + 3**2)}/>
+                            <canvas id="cnv" width={600} height={600} ></canvas>
                         </div>
                         <div className="Scheme">
 
@@ -92,3 +96,5 @@ const Signal = ({value}) => (
 );
 
 export default Test;
+
+
