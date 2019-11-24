@@ -45,10 +45,10 @@ const Test = () => {
         cnv.height = cnv.parentNode.offsetHeight;
         let ctx = cnv.getContext("2d");
         for (var i = 0; i < 4; i++) {
-            draw_rect_signal(ctx, 20.5, 20.5 + i * 30, 320, 10, Rand_of_var(variant + i**2)); 
+            draw_rect_signal(ctx, 20.5, 20.5 + i * 30, 640, 10, Rand_of_var(variant + i**2)); 
         }
-        draw_JK(ctx, 350.5, 20.5, 40, 100, 10, [true, false, true]);
-    })
+        draw_JK(ctx, 690.5, 20.5, 80, 200, 10, [true, false, true]);
+    });
     
     return (
         <div className="App">
