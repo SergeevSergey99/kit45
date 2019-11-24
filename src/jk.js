@@ -10,22 +10,22 @@ function jk(obj) {
     if (obj.inv_r) obj.r = !obj.r;
     if (obj.inv_s) obj.s = !obj.s;
     if (obj.inv_c) obj.c = -obj.c;
-    if (obj.s & !obj.r) {
+    if (obj.s && !obj.r) {
         return 1;
     }
-    if (obj.r & !obj.s) {
+    if (obj.r && !obj.s) {
         return 0;
     }
-    if (obj.r & obj.s) {
+    if (obj.r && obj.s) {
         return 1;
     }
     if (obj.c < 1) {
         return obj.q;
     }
-    if (!obj.j & !obj.k) {
+    if (!obj.j && !obj.k) {
         return obj.q;
     }
-    if (obj.j & obj.k) {
+    if (obj.j && obj.k) {
         return obj.q? 0 : 1; // "not" but in integer
     }
     if (obj.j) {
@@ -42,10 +42,10 @@ function jk(obj) {
 // but not forbidden,
 // q is initial state
 // returns 0/1 array of stares
-function jk_array(j, k, r, s, c, q, inv_obj) {
-    ans = [];
-    for (i = 0; i < j.length; i++) {
-        obj = {
+export function jk_array(j, k, r, s, c, q, inv_obj) {
+    var ans = [];
+    for (var i = 0; i < j.length; i++) {
+        let obj = {
             "r": r[i],
             "s": s[i],
             "j": j[i],
@@ -59,5 +59,5 @@ function jk_array(j, k, r, s, c, q, inv_obj) {
         q = jk(obj);
         ans.push(q);
     }
-    return q;
+    return ans;
 }

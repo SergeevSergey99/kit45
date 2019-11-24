@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import "./ResetBrowser.css";
 import "./Test.css";
+import {draw_rect_signal, draw_JK} from "./draw_functions.js";
+import {jk_array} from "./jk.js";
+import {generate_nonrandom} from "./generator.js";
 
 class JK_Trigger {
     constructor() {
@@ -93,6 +96,7 @@ const Test = () => {
     JK_now.generate(variant);
 
     const submitVariant = e => {
+
         alert(variant);
         JK_now.generate(variant);
         e.preventDefault();
@@ -101,8 +105,20 @@ const Test = () => {
     const changeVariant = e => {
         JK_now.generate(e.target.value);
         setVariant(e.target.value);
+        
     };
 
+    useEffect(() => {
+        var cnv = document.querySelector("#cnv");
+        cnv.width = cnv.parentNode.offsetWidth;
+        cnv.height = cnv.parentNode.offsetHeight;
+        let ctx = cnv.getContext("2d");
+        for (var i = 0; i < 4; i++) {
+            draw_rect_signal(ctx, 20.5, 20.5 + i * 30, 640, 10, Rand_of_var(variant + i**2)); 
+        }
+        draw_JK(ctx, 690.5, 20.5, 80, 200, 10, [true, false, true]);
+    });
+    
     return (
         <div className="App">
             <div className="App-header">
@@ -113,10 +129,14 @@ const Test = () => {
                 <div className="App-main-content">
                     <div className="App-main-content-data">
                         <div className="App-main-content-signal">
+
                             <Signal value={JK_now.signal_c}/>
                             <Signal value={JK_now.signal_j}/>
                             <Signal value={JK_now.signal_k}/>
                             <Signal value={JK_now.signal_r}/>
+
+                            <canvas id="cnv" width={600} height={600} ></canvas>
+
                         </div>
                         <div className="Scheme">
 
