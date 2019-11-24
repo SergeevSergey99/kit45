@@ -86,7 +86,7 @@ const Test = () => {
                             />
                         </div>
                         <div className="Answer">
-
+                            {jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S})}
                         </div>
                     </div>
                     <div className="App-main-content-description">
