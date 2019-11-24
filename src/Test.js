@@ -112,13 +112,12 @@ const Test = () => {
         cnv.width = cnv.parentNode.offsetWidth;
         cnv.height = cnv.parentNode.offsetHeight;
         let ctx = cnv.getContext("2d");
-        console.log(JK_now.order)
         for (let i in JK_now.order) {
             let sig = JK_now.order[i];
-            if (sig == JK_now.pass_in) continue;
-            draw_rect_signal(ctx, 30.5 - (sig == "C"? 10:0), 50.5 + i*30, 640, 10, JK_now["signal_" + sig.toLowerCase()]);
+            if (sig === JK_now.pass_in) continue;
+            draw_rect_signal(ctx, 30.5 - (sig === "C"? 10:0), 50.5 + i*30, 640, 10, JK_now["signal_" + sig.toLowerCase()]);
         }
-        draw_JK(ctx, 690.5, 20.5, 80, 200, 10, [true, false, true]);
+        draw_JK(ctx, 690.5, 20.5, 80, 200, 10, [JK_now.inv_S, JK_now.inv_C, JK_now.inv_R], JK_now.order);
     });
     
     return (
