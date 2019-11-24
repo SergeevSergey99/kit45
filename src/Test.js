@@ -112,8 +112,10 @@ const Test = () => {
         cnv.width = cnv.parentNode.offsetWidth;
         cnv.height = cnv.parentNode.offsetHeight;
         let ctx = cnv.getContext("2d");
-        for (var i = 0; i < 4; i++) {
-            draw_rect_signal(ctx, 20.5, 20.5 + i * 30, 640, 10, Rand_of_var(variant + i**2)); 
+        console.log(JK_now.order)
+        for (let i in JK_now.order) {
+            let sig = JK_now.order[i];
+            draw_rect_signal(ctx, 30.5 - sig == "C"? 10:0, 30.5 + i*20, 640, 10, JK_now["signal_" + sig.toLowerCase()]);
         }
         draw_JK(ctx, 690.5, 20.5, 80, 200, 10, [true, false, true]);
     });
@@ -129,10 +131,10 @@ const Test = () => {
                     <div className="App-main-content-data">
                         <div className="App-main-content-signal">
 
-                            <Signal value={JK_now.signal_c}/>
+                            {/*<Signal value={JK_now.signal_c}/>
                             <Signal value={JK_now.signal_j}/>
                             <Signal value={JK_now.signal_k}/>
-                            <Signal value={JK_now.signal_r}/>
+                            <Signal value={JK_now.signal_r}/>*/}
 
                             <canvas id="cnv" width={600} height={600} ></canvas>
 
