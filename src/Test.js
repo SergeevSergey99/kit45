@@ -23,6 +23,7 @@ const Test = () => {
     };
 
     useEffect(() => {
+        let size = 660; // регулирует масштаб выводимых сигналов
         var cnv = document.querySelector("#cnv");
         cnv.width = cnv.parentNode.offsetWidth;
         cnv.height = cnv.parentNode.offsetHeight;
@@ -34,20 +35,21 @@ const Test = () => {
                 continue;
             }
             if (sig === "C") ctx.strokeStyle = "#fff";
-            draw_rect_signal(ctx, 30.5 - (sig === "C"? 15:0), 50.5 + i*35, 640, 10, JK_now["signal_" + sig.toLowerCase()]);
+            draw_rect_signal(ctx, 30.5 - (sig === "C"? 15:0), 50.5 + i*35, size, 10, JK_now["signal_" + sig.toLowerCase()]);
             ctx.strokeStyle = "#000";
+
         }
-        draw_JK(ctx, 690.5, 20.5, 80, 200, 10, [JK_now.inv_S, JK_now.inv_C, JK_now.inv_R], JK_now.order);
+        draw_JK(ctx, size + 50, 10, 80, 200, 10, [JK_now.inv_S, JK_now.inv_C, JK_now.inv_R], JK_now.order);
         ctx.beginPath(); // drawing dots
         for (let i = 0; i < 19; i++) {
-            ctx.arc(30.5 + i * 640/19 + 640/19/2, 40.5, 2, 0, Math.PI * 2);
+            ctx.arc(30.5 + i * size/19 + size/19/2, 40.5, 2, 0, Math.PI * 2);
         }
         ctx.fill();
         ctx.beginPath(); // drawing dashed lines
         ctx.setLineDash([3, 2]);
         for (let i = 15; i > 0; i -= 4) {
-            ctx.moveTo(30.5 + i * 640/19 + 640/19/4, 38.5);
-            ctx.lineTo(30.5 + i * 640/19 + 640/19/4, 208.5)
+            ctx.moveTo(30.5 + i * size/19 + size/19/4, 38.5);
+            ctx.lineTo(30.5 + i * size/19 + size/19/4, 208.5)
         }
         ctx.strokeStyle = "#0004";
         ctx.stroke();
@@ -69,10 +71,7 @@ const Test = () => {
                             <Signal value={JK_now.signal_k}/>
                             <Signal value={JK_now.signal_r}/>*/}
 
-                            <canvas id="cnv" width={600} height={600}></canvas>
-
-                        </div>
-                        <div className="Scheme">
+                            <canvas id="cnv" ></canvas>
 
                         </div>
                     </div>
