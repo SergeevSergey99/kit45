@@ -115,7 +115,8 @@ const Test = () => {
         console.log(JK_now.order)
         for (let i in JK_now.order) {
             let sig = JK_now.order[i];
-            draw_rect_signal(ctx, 30.5 - sig == "C"? 10:0, 30.5 + i*20, 640, 10, JK_now["signal_" + sig.toLowerCase()]);
+            if (sig == JK_now.pass_in) continue;
+            draw_rect_signal(ctx, 30.5 - (sig == "C"? 10:0), 50.5 + i*30, 640, 10, JK_now["signal_" + sig.toLowerCase()]);
         }
         draw_JK(ctx, 690.5, 20.5, 80, 200, 10, [true, false, true]);
     });
