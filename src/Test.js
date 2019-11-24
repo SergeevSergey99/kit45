@@ -5,6 +5,7 @@ import {draw_rect_signal, draw_JK} from "./draw_functions.js";
 import {jk_array} from "./jk.js";
 
 class JK_Trigger {
+
     constructor() {
         this.signal_c = "";
         this.signal_j = "";
@@ -29,15 +30,14 @@ class JK_Trigger {
 
         let pos = ["C", "J", "K"];
         this.order = "" + (("1" === Rand_of_var(variant + 11 ** 2, 1)) ? "R" : "S");
-        let tmp = Number(Rand_of_var3(variant + 12 ** 2,1));
+        let tmp = Number(Rand_of_var3(variant + 12 ** 2, 1));
         this.order += pos[tmp];
-        pos.slice(tmp,1);
-        tmp = Number(Rand_of_var(variant + 13 ** 2,1));
+        pos.splice(tmp, 1);
+        tmp = Number(Rand_of_var(variant + 13 ** 2, 1));
         this.order += pos[tmp];
-        pos.slice(tmp,1);
+        pos.splice(tmp, 1);
         this.order += pos[0];
         this.order += (("0" === Rand_of_var(variant + 11 ** 2, 1)) ? "R" : "S");
-
 
         this.inv_C = "1" === Rand_of_var(variant + 5 ** 2, 1);
         this.inv_R = "1" === Rand_of_var(variant + 6 ** 2, 1);
@@ -45,6 +45,16 @@ class JK_Trigger {
         this.q = "1" === Rand_of_var(variant + 8 ** 2, 1);
         this.pass_in = ("1" === Rand_of_var(variant + 9 ** 2, 1)) ? "R" : "S";
         this.pass_val = Rand_of_var(variant + 10 ** 2, 1);
+        if(this.pass_in === "R") {
+            this.signal_r = "";
+            for (var i = 0; i < 19; i++)
+                this.signal_r += this.pass_val;
+        }
+        else {
+            this.signal_s = "";
+            for (var i = 0; i < 19; i++)
+                this.signal_s += this.pass_val;
+        }
     }
 
 
@@ -63,6 +73,7 @@ function Rand_of_var(variant, symbols = 19) {
     }
     return signal;
 }
+
 /**
  * @return {string}
  */
@@ -104,7 +115,6 @@ const Test = () => {
     const changeVariant = e => {
         JK_now.generate(e.target.value);
         setVariant(e.target.value);
-        
     };
 
     useEffect(() => {
@@ -113,11 +123,11 @@ const Test = () => {
         cnv.height = cnv.parentNode.offsetHeight;
         let ctx = cnv.getContext("2d");
         for (var i = 0; i < 4; i++) {
-            draw_rect_signal(ctx, 20.5, 20.5 + i * 30, 640, 10, Rand_of_var(variant + i**2)); 
+            draw_rect_signal(ctx, 20.5, 20.5 + i * 30, 640, 10, Rand_of_var(variant + i ** 2));
         }
         draw_JK(ctx, 690.5, 20.5, 80, 200, 10, [true, false, true]);
     });
-    
+
     return (
         <div className="App">
             <div className="App-header">
@@ -134,7 +144,7 @@ const Test = () => {
                             <Signal value={JK_now.signal_k}/>
                             <Signal value={JK_now.signal_r}/>
 
-                            <canvas id="cnv" width={600} height={600} ></canvas>
+                            <canvas id="cnv" width={600} height={600}></canvas>
 
                         </div>
                         <div className="Scheme">
