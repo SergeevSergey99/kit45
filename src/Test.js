@@ -3,7 +3,6 @@ import "./ResetBrowser.css";
 import "./Test.css";
 import {draw_rect_signal, draw_JK} from "./draw_functions.js";
 import {jk_array} from "./jk.js";
-import {generate_nonrandom} from "./generator.js";
 
 class JK_Trigger {
     constructor() {
