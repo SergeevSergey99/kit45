@@ -29,18 +29,29 @@ const Test = () => {
         let ctx = cnv.getContext("2d");
         for (let i in JK_now.order) {
             let sig = JK_now.order[i];
-            if (sig === JK_now.pass_in) continue;
+            if (sig === JK_now.pass_in) {
+                ctx.fillText(JK_now.pass_val + " ->", 660.5, 50.5 + i*35)
+                continue;
+            }
             if (sig === "C") ctx.strokeStyle = "#fff";
             draw_rect_signal(ctx, 30.5 - (sig === "C"? 15:0), 50.5 + i*35, 640, 10, JK_now["signal_" + sig.toLowerCase()]);
             ctx.strokeStyle = "#000";
         }
-        ctx.beginPath();
+        draw_JK(ctx, 690.5, 20.5, 80, 200, 10, [JK_now.inv_S, JK_now.inv_C, JK_now.inv_R], JK_now.order);
+        ctx.beginPath(); // drawing dots
         for (let i = 0; i < 19; i++) {
             ctx.arc(30.5 + i * 640/19 + 640/19/2, 40.5, 2, 0, Math.PI * 2);
         }
         ctx.fill();
-        draw_JK(ctx, 690.5, 20.5, 80, 200, 10, [JK_now.inv_S, JK_now.inv_C, JK_now.inv_R], JK_now.order);
-    });
+        ctx.beginPath(); // drawing dashed lines
+        ctx.setLineDash([3, 2]);
+        for (let i = 15; i > 0; i -= 4) {
+            ctx.moveTo(30.5 + i * 640/19 + 640/19/4, 38.5);
+            ctx.lineTo(30.5 + i * 640/19 + 640/19/4, 208.5)
+        }
+        ctx.strokeStyle = "#0004";
+        ctx.stroke();
+   });
 
     return (
         <div className="App">
