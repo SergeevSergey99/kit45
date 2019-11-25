@@ -92,7 +92,7 @@ const Test = () => {
                         </div>
                     </div>
                     <div className="App-main-content-description">
-                        Задание
+                        <b>Задание: </b> JK-триггер, сигналы, как показано на картинке. В начальный момент <b>q={1 * JK_now.q}</b>. Определить q для всех моментов, обозначенных точкой. Записать в шестнадцатеричном виде.
                     </div>
                 </div>
                 <div className="App-main-rightside">Право</div>
