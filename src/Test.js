@@ -3,105 +3,10 @@ import "./ResetBrowser.css";
 import "./Test.css";
 import {draw_rect_signal, draw_JK} from "./draw_functions.js";
 import {jk_array} from "./jk.js";
+import {JK_now} from "./generator.js";
 
-class JK_Trigger {
-
-    constructor() {
-        this.signal_c = "";
-        this.signal_j = "";
-        this.signal_k = "";
-        this.signal_r = "";
-        this.signal_s = "";
-        this.inv_C = true;
-        this.inv_R = true;
-        this.inv_S = true;
-        this.order = "RCJKS";
-        this.q = true;
-        this.pass_in = "R";
-        this.pass_val = 0;
-    }
-
-    generate(variant) {
-        this.signal_c = Rand_of_var(variant + 0 ** 2, 20);
-        this.signal_j = Rand_of_var(variant + 1 ** 2);
-        this.signal_k = Rand_of_var(variant + 2 ** 2);
-        this.signal_r = Rand_of_var(variant + 3 ** 2);
-        this.signal_s = Rand_of_var(variant + 4 ** 2);
-
-        let pos = ["C", "J", "K"];
-        this.order = "" + (("1" === Rand_of_var(variant + 11 ** 2, 1)) ? "R" : "S");
-        let tmp = Number(Rand_of_var3(variant + 12 ** 2, 1));
-        this.order += pos[tmp];
-        pos.splice(tmp, 1);
-        tmp = Number(Rand_of_var(variant + 13 ** 2, 1));
-        this.order += pos[tmp];
-        pos.splice(tmp, 1);
-        this.order += pos[0];
-        this.order += (("0" === Rand_of_var(variant + 11 ** 2, 1)) ? "R" : "S");
-
-        this.inv_C = "1" === Rand_of_var(variant + 5 ** 2, 1);
-        this.inv_R = "1" === Rand_of_var(variant + 6 ** 2, 1);
-        this.inv_S = "1" === Rand_of_var(variant + 7 ** 2, 1);
-        this.q = "1" === Rand_of_var(variant + 8 ** 2, 1);
-        this.pass_in = ("1" === Rand_of_var(variant + 9 ** 2, 1)) ? "R" : "S";
-        this.pass_val = Rand_of_var(variant + 10 ** 2, 1);
-        if(this.pass_in === "R") {
-            this.signal_r = "";
-            for (var i = 0; i < 19; i++)
-                this.signal_r += this.pass_val;
-        }
-        else {
-            this.signal_s = "";
-            for (var i = 0; i < 19; i++)
-                this.signal_s += this.pass_val;
-        }
-    }
-
-
-}
-
-/**
- * @return {string}
- */
-function Rand_of_var(variant, symbols = 19) {
-    let a = 0;
-    let signal = "";
-    for (let i = 0; i < symbols; i++) {
-        a += variant + i;
-        a = Math.abs(Math.sin(a)) * 10000;
-        signal += Math.floor(a) % 2 + "";
-    }
-    return signal;
-}
-
-/**
- * @return {string}
- */
-function Rand_of_var3(variant, symbols = 19) {
-    let a = 0;
-    let signal = "";
-    for (let i = 0; i < symbols; i++) {
-        a += variant + i;
-        a = Math.abs(Math.sin(a)) * 10000;
-        signal += Math.floor(a) % 3 + "";
-    }
-    return signal;
-}
-
-/*function sfc32(_a) {
-    a +=_a;
-    a = Math.abs(Math.sin(a)) * 10000;
-    return Math.floor(a);
-}*/
-/*
-function JCreg() {
-    return;
-}*/
-
-var JK_now = new JK_Trigger();
 const Test = () => {
     const [variant, setVariant] = useState("2");
-
 
     JK_now.generate(variant);
 
@@ -118,15 +23,40 @@ const Test = () => {
     };
 
     useEffect(() => {
-        var cnv = document.querySelector("#cnv");
+        let size = 660; // регулирует масштаб выводимых сигналов
+        let cnv = document.querySelector("#cnv");
         cnv.width = cnv.parentNode.offsetWidth;
         cnv.height = cnv.parentNode.offsetHeight;
         let ctx = cnv.getContext("2d");
-        for (var i = 0; i < 4; i++) {
-            draw_rect_signal(ctx, 20.5, 20.5 + i * 30, 640, 10, Rand_of_var(variant + i ** 2));
+        for (let i in JK_now.order) {
+            let sig = JK_now.order[i];
+            if (sig === JK_now.pass_in) {
+                ctx.fillText(JK_now.pass_val + " ->", 660.5, 50.5 + i*35)
+                continue;
+            }
+            if (sig === "C") ctx.strokeStyle = "#fff";
+            let add_c = sig === "C"? size/19:0;
+            draw_rect_signal(ctx, 30.5 - add_c/2, 50.5 + i*35, size + add_c, 10, JK_now["signal_" + sig.toLowerCase()]);
+            ctx.strokeStyle = "#000";
+
         }
-        draw_JK(ctx, 690.5, 20.5, 80, 200, 10, [true, false, true]);
-    });
+        ctx.clearRect(0, 0, 30, 200);
+        ctx.clearRect(30.5 + size, 0, 50, 200);
+        draw_JK(ctx, size + 50.5, 10.5, 80, 200, 10, [JK_now.inv_S, JK_now.inv_C, JK_now.inv_R], JK_now.order);
+        ctx.beginPath(); // drawing dots
+        for (let i = 0; i < 19; i++) {
+            ctx.arc(30.5 + (i + 1) * size/19 - size/19/4, 40.5, 2, 0, Math.PI * 2);
+        }
+        ctx.fill();
+        ctx.beginPath(); // drawing dashed lines
+        ctx.setLineDash([3, 2]);
+        for (let i = 15; i > 0; i -= 4) {
+            ctx.moveTo(30.5 + i * size/19 + size/19/4, 38.5);
+            ctx.lineTo(30.5 + i * size/19 + size/19/4, 208.5)
+        }
+        ctx.strokeStyle = "#0004";
+        ctx.stroke();
+   });
 
     return (
         <div className="App">
@@ -139,15 +69,12 @@ const Test = () => {
                     <div className="App-main-content-data">
                         <div className="App-main-content-signal">
 
-                            <Signal value={JK_now.signal_c}/>
+                            {/*<Signal value={JK_now.signal_c}/>
                             <Signal value={JK_now.signal_j}/>
                             <Signal value={JK_now.signal_k}/>
-                            <Signal value={JK_now.signal_r}/>
+                            <Signal value={JK_now.signal_r}/>*/}
 
-                            <canvas id="cnv" width={600} height={600}></canvas>
-
-                        </div>
-                        <div className="Scheme">
+                            <canvas id="cnv" ></canvas>
 
                         </div>
                     </div>
@@ -161,11 +88,11 @@ const Test = () => {
                             />
                         </div>
                         <div className="Answer">
-
+                            {parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S}).join(""), 2).toString(16)}
                         </div>
                     </div>
                     <div className="App-main-content-description">
-                        Задание
+                        <b>Задание: </b> JK-триггер, сигналы, как показано на картинке. В начальный момент <b>q={1 * JK_now.q}</b>. Определить q для всех моментов, обозначенных точкой. Записать в шестнадцатеричном виде.
                     </div>
                 </div>
                 <div className="App-main-rightside">Право</div>
@@ -177,7 +104,7 @@ const Test = () => {
 const VariantForm = ({variant, submitVariant, changeVariant}) => (
     <form onSubmit={submitVariant}>
         <label>
-            <input type="text" value={variant} onChange={changeVariant}/>
+            <input type="number" value={variant} onChange={changeVariant} min="1"/>
         </label>
         <input type="submit" value="Да!"/>
     </form>
