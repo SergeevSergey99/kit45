@@ -24,7 +24,7 @@ const Test = () => {
 
     useEffect(() => {
         let size = 660; // регулирует масштаб выводимых сигналов
-        var cnv = document.querySelector("#cnv");
+        let cnv = document.querySelector("#cnv");
         cnv.width = cnv.parentNode.offsetWidth;
         cnv.height = cnv.parentNode.offsetHeight;
         let ctx = cnv.getContext("2d");
@@ -35,14 +35,17 @@ const Test = () => {
                 continue;
             }
             if (sig === "C") ctx.strokeStyle = "#fff";
-            draw_rect_signal(ctx, 30.5 - (sig === "C"? 15:0), 50.5 + i*35, size, 10, JK_now["signal_" + sig.toLowerCase()]);
+            let add_c = sig === "C"? size/19:0;
+            draw_rect_signal(ctx, 30.5 - add_c/2, 50.5 + i*35, size + add_c, 10, JK_now["signal_" + sig.toLowerCase()]);
+            ctx.clearRect(0, 0, 30.5, 200);
+            ctx.clearRect(30.5 + size, 0, 50, 200);
             ctx.strokeStyle = "#000";
 
         }
-        draw_JK(ctx, size + 50, 10, 80, 200, 10, [JK_now.inv_S, JK_now.inv_C, JK_now.inv_R], JK_now.order);
+        draw_JK(ctx, size + 50.5, 10.5, 80, 200, 10, [JK_now.inv_S, JK_now.inv_C, JK_now.inv_R], JK_now.order);
         ctx.beginPath(); // drawing dots
         for (let i = 0; i < 19; i++) {
-            ctx.arc(30.5 + i * size/19 + size/19/2, 40.5, 2, 0, Math.PI * 2);
+            ctx.arc(30.5 + (i + 1) * size/19 - size/19/4, 40.5, 2, 0, Math.PI * 2);
         }
         ctx.fill();
         ctx.beginPath(); // drawing dashed lines
