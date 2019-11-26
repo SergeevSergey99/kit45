@@ -10,13 +10,6 @@ const Test = () => {
 
     JK_now.generate(variant);
 
-    const submitVariant = e => {
-
-        alert(variant);
-        JK_now.generate(variant);
-        e.preventDefault();
-    };
-
     const changeVariant = e => {
         JK_now.generate(e.target.value);
         setVariant(e.target.value);
@@ -61,18 +54,13 @@ const Test = () => {
     return (
         <div className="App">
             <div className="App-header">
-                Шапка
+                JK26.3
             </div>
             <div className="App-main">
-                <div className="App-main-leftside">Лево</div>
+                <div className="App-main-leftside"></div>
                 <div className="App-main-content">
                     <div className="App-main-content-data">
                         <div className="App-main-content-signal">
-
-                            {/*<Signal value={JK_now.signal_c}/>
-                            <Signal value={JK_now.signal_j}/>
-                            <Signal value={JK_now.signal_k}/>
-                            <Signal value={JK_now.signal_r}/>*/}
 
                             <canvas id="cnv" ></canvas>
 
@@ -83,32 +71,49 @@ const Test = () => {
                         <div className="Variant">
                             <VariantForm
                                 variant={variant}
-                                submitVariant={submitVariant}
                                 changeVariant={changeVariant}
                             />
                         </div>
                         <div className="Answer">
-                            {parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S}).join(""), 2).toString(16)}
+                           <AnswerForm
+                               answer={parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S}).join(""), 2).toString(16)}/>
                         </div>
                     </div>
                     <div className="App-main-content-description">
-                        <b>Задание: </b> JK-триггер, сигналы, как показано на картинке. В начальный момент <b>q={1 * JK_now.q}</b>. Определить q для всех моментов, обозначенных точкой. Записать в шестнадцатеричном виде.
+                        <p>В отмеченные моменты времени найдите 19 значений на выходе JK триггера при заданных временных диаграммах на входах C,J,K и R. Начальное значение Q&nbsp;=&nbsp;{JK_now.q * 1}. Ответ дайте в HEX коде.</p>
+                        <p>Пример ответа: 9DB94. Обратите внимание на тип входов S,R,C.</p>
                     </div>
                 </div>
-                <div className="App-main-rightside">Право</div>
+                <div className="App-main-rightside"></div>
             </div>
         </div>
     );
 };
 
-const VariantForm = ({variant, submitVariant, changeVariant}) => (
-    <form onSubmit={submitVariant}>
-        <label>
-            <input type="number" value={variant} onChange={changeVariant} min="1"/>
-        </label>
-        <input type="submit" value="Да!"/>
-    </form>
+const VariantForm = ({variant, changeVariant}) => (
+    <div className="VariantContent">
+       <div><b>сюда можно ввести свой вариант</b></div>
+        <input type="number" value={variant} onChange={changeVariant} min="1"/>
+    </div>
 );
+
+const AnswerForm = ({answer, submitVariant, changeVariant}) => {
+    const [value, setValue] = useState("");
+    const submitAnswer = e => {
+        answer == value ? alert("Верно!") : alert("Не получилось!");
+    };
+
+    const changeAnswer = e => {
+        setValue(e.target.value);
+    };
+
+    return (
+        <div className="AnswerForm">
+            <input type="text" value={value} onChange={changeAnswer} min="1"/>
+            <button onClick={submitAnswer}> {answer} </button>
+        </div>
+    );
+}
 
 const Signal = ({value}) => (
     <div className="Signal">{value}</div>

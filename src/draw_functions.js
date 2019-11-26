@@ -61,5 +61,18 @@ export function draw_JK(ctx, x, y, w, h, padding, inv, order="SCJKR") {
         ctx.arc(x, y + r_pos*h/10, padding/2, 0, 7);
     }
     ctx.stroke();
+    let operation_preserve = ctx.globalCompositeOperation;
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    if (inv[0]) {
+        ctx.moveTo(x, y + s_pos*h/10);
+        ctx.arc(x, y + s_pos * h/10, padding/2-1, 0, Math.PI * 2);
+    }
+    if (inv[2]) {
+        ctx.moveTo(x, y + r_pos*h/10);
+        ctx.arc(x, y + r_pos * h/10, padding/2-1, 0, Math.PI * 2);
+    }
+    ctx.fill();
+    ctx.globalCompositeOperation = operation_preserve;
 }
 
