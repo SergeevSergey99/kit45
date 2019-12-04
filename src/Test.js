@@ -38,7 +38,13 @@ const Test = () => {
         draw_JK(ctx, size + 50.5, 10.5, 80, 200, 10, [JK_now.inv_S, JK_now.inv_C, JK_now.inv_R], JK_now.order);
         ctx.beginPath(); // drawing dots
         for (let i = 0; i < 19; i++) {
-            ctx.arc(30.5 + (i + 1) * size/19 - size/19/4, 40.5, 2, 0, Math.PI * 2);
+            let cx = 30.5 + (i + 1) * size/19 - size/19/4;
+            let y1 =  60.5,
+                y2 = 212.5;
+            ctx.moveTo(cx, y1);
+            ctx.arc(cx, y1, 2, 0, Math.PI * 2);
+            ctx.moveTo(cx, y2)
+            ctx.arc(cx, y2, 2, 0, Math.PI * 2);
         }
         ctx.fill();
         ctx.beginPath(); // drawing dashed lines
