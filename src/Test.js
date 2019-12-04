@@ -11,8 +11,16 @@ const Test = () => {
     JK_now.generate(variant);
 
     const changeVariant = e => {
-        JK_now.generate(e.target.value);
-        setVariant(e.target.value);
+        console.log(e.target.value.length);
+
+        if (e.target.value.length > 19) {
+            alert ("Введено максимальное количество символов!");
+        }
+        else {
+            JK_now.generate(e.target.value);
+            setVariant(e.target.value);
+        }
+
     };
 
     useEffect(() => {
@@ -80,7 +88,7 @@ const Test = () => {
                         </div>
                     </div>
                     <div className="App-main-content-description">
-                        <p>В отмеченные моменты времени найдите 19 значений на выходе JK триггера при заданных временных диаграммах на входах C,J,K и R. Начальное значение Q = 1. Ответ дайте в HEX коде.</p>
+                        <p>В отмеченные моменты времени найдите 19 значений на выходе JK триггера при заданных временных диаграммах на входах C,J,K и R. Начальное значение Q = {JK_now.q * 1}. Ответ дайте в HEX коде.</p>
                         <p>Пример ответа: 9DB94. Обратите внимание на тип входов S,R,C.</p>
                     </div>
                 </div>
