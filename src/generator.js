@@ -42,21 +42,21 @@ class JK_Trigger {
 
         this.signal_r = "";
         this.signal_s = "";
-        let rand = Rand_of_var(variant + 15 ** 2, 1);
+        //let rand = Rand_of_var(variant + 15 ** 2, 1);
         if (this.order[0] === "R") {
             for (let i = 0; i < 19; i++) {
                 this.signal_r += ((this.inv_R) ? "1" : "0");
-                this.signal_s += rand;
+                this.signal_s += (this.inv_S ? "1" : "0");
             }
-            rand = Math.floor(Math.abs(Math.sin(variant)) * 10000) % 5 + 3;
+            let rand = Math.floor(Math.abs(Math.sin(variant)) * 10000) % 5 + 3;
             this.signal_s = this.signal_s.slice(0, rand) + ((this.signal_s[0] === "1") ? "0000" : "1111") + this.signal_s.slice(rand);
             this.signal_s = this.signal_s.slice(0, 19);
         } else {
             for (let i = 0; i < 19; i++) {
                 this.signal_s += ((this.inv_S) ? "1" : "0");
-                this.signal_r += rand;
+                this.signal_r += (this.inv_R ? "1" : "0");
             }
-            rand = Math.floor(Math.abs(Math.sin(variant)) * 10000) % 10 + 3;
+            let rand = Math.floor(Math.abs(Math.sin(variant)) * 10000) % 10 + 3;
             this.signal_r = this.signal_r.slice(0, rand) + ((this.signal_r[0] === "1") ? "0000" : "1111") + this.signal_r.slice(rand);
             this.signal_r = this.signal_r.slice(0, 19);
         }
