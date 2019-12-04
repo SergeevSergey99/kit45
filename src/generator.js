@@ -16,7 +16,10 @@ class JK_Trigger {
     }
 
     generate(variant) {
-        this.signal_c = Rand_of_var(variant + 0 ** 2, 20);
+
+
+        this.signal_c = "1010101010101010101010";
+        this.signal_c = delete_from_signal(variant + 1 ** 3, this.signal_c);
         this.signal_j = Rand_of_var(variant + 1 ** 2);
         this.signal_k = Rand_of_var(variant + 2 ** 2);
         //this.signal_r = Rand_of_var(variant + 3 ** 2);
@@ -42,21 +45,21 @@ class JK_Trigger {
 
         this.signal_r = "";
         this.signal_s = "";
-        let rand = Rand_of_var(variant + 15 ** 2, 1);
+        //let rand = Rand_of_var(variant + 15 ** 2, 1);
         if (this.order[0] === "R") {
             for (let i = 0; i < 19; i++) {
                 this.signal_r += ((this.inv_R) ? "1" : "0");
-                this.signal_s += rand;
+                this.signal_s += (this.inv_S ? "1" : "0");
             }
-            rand = Math.floor(Math.abs(Math.sin(variant)) * 10000) % 5 + 3;
+            let rand = Math.floor(Math.abs(Math.sin(variant)) * 10000) % 5 + 3;
             this.signal_s = this.signal_s.slice(0, rand) + ((this.signal_s[0] === "1") ? "0000" : "1111") + this.signal_s.slice(rand);
             this.signal_s = this.signal_s.slice(0, 19);
         } else {
             for (let i = 0; i < 19; i++) {
                 this.signal_s += ((this.inv_S) ? "1" : "0");
-                this.signal_r += rand;
+                this.signal_r += (this.inv_R ? "1" : "0");
             }
-            rand = Math.floor(Math.abs(Math.sin(variant)) * 10000) % 10 + 3;
+            let rand = Math.floor(Math.abs(Math.sin(variant)) * 10000) % 10 + 3;
             this.signal_r = this.signal_r.slice(0, rand) + ((this.signal_r[0] === "1") ? "0000" : "1111") + this.signal_r.slice(rand);
             this.signal_r = this.signal_r.slice(0, 19);
         }
@@ -64,7 +67,17 @@ class JK_Trigger {
 
 
 }
+function delete_from_signal(variant, signal, n = 2, super_const = 3){
+    //СУПЕР КОНСТАНТА НЕСОСЕДНИХ ЭЛЕМЕНТОВ
+    let j = 0;
+    for (let i = 0; i < n; i++)
+    {
+        j += Math.floor(Math.abs(Math.sin(variant + 15 + 71 * i)) * 10000) % 5 + super_const;
+        signal = signal.slice(0, j) + signal.slice(j+1);
+    }
 
+    return signal;
+}
 /**
  * @return {string}
  */

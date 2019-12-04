@@ -34,7 +34,7 @@ const Test = () => {
         cnv.width = cnv.parentNode.offsetWidth;
         cnv.height = cnv.parentNode.offsetHeight;
         let ctx = cnv.getContext("2d");
-        let size = cnv.width * 0.625; // регулирует масштаб выводимых сигналов
+        let size = cnv.width * 0.825; // регулирует масштаб выводимых сигналов
         for (let i in JK_now.order) {
             let sig = JK_now.order[i];
             if (i * 1 === 0) {
@@ -54,11 +54,13 @@ const Test = () => {
         for (let i = 0; i < 19; i++) {
             let cx = 30.5 + (i + 1) * size/19 - size/19/4;
             let y1 =  60.5,
-                y2 = 212.5;
+                y2 = 212.5,
+                yT = 50.5;
             ctx.moveTo(cx, y1);
             ctx.arc(cx, y1, 2, 0, Math.PI * 2);
             ctx.moveTo(cx, y2)
             ctx.arc(cx, y2, 2, 0, Math.PI * 2);
+            ctx.fillText("ABCDEFGHIJKLMNOPQRS"[i], cx, yT);
         }
         ctx.fill();
         ctx.beginPath(); // drawing dashed lines

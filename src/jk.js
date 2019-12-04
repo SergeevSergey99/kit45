@@ -7,7 +7,7 @@
 // inv_r, inv_s, inv_c -- boolean, optional -- if r, s, c should be inverted
 // returns new state (q) of trigger
 function jk(iobj) {
-    let obj = {};
+    let obj = {"r": iobj.r, "s": iobj.s, "c": iobj.c};
     if (iobj.inv_r) obj.r = !iobj.r;
     if (iobj.inv_s) obj.s = !iobj.s;
     if (iobj.inv_c) obj.c = -iobj.c;
@@ -17,6 +17,7 @@ function jk(iobj) {
     obj.k = iobj.k;
     if (obj.s && !obj.r) {
         //console.log("s and not r");
+        //console.log("s = " + obj.s + ", r = " + obj.r);
         return 1;
     }
     if (obj.r && !obj.s) {
@@ -26,6 +27,7 @@ function jk(iobj) {
     if (!!obj.r && !!obj.s) {
         //console.log("r and s");
         //console.log("r = " + obj.r + ", s = " + obj.s);
+        //console.log(typeof(obj.r));
         return 1;
     }
     if (obj.c < 1) {
@@ -57,18 +59,18 @@ function jk(iobj) {
 // returns 0/1 array of stares
 export function jk_array(j, k, r, s, c, q, inv_obj) {
     var ans = [];
-    let q1 = 1;
+    let q1 = q * 1;
     for (var i = 0; i < j.length; i++) {
         let obj = {
-            "r": r[i],
-            "s": s[i],
-            "j": j[i],
-            "k": k[i],
+            "r": r[i] * 1,
+            "s": s[i] * 1,
+            "j": j[i] * 1,
+            "k": k[i] * 1,
             "c": c[i+1] - c[i],
             "inv_r": !!inv_obj.r,
             "inv_s": !!inv_obj.s,
             "inv_c": !!inv_obj.c,
-            "q": q1
+            "q": q1 * 1
         }
         q1 = jk(obj);
         ans.push(q1);
