@@ -23,13 +23,13 @@ const Test = () => {
         let ctx = cnv.getContext("2d");
         for (let i in JK_now.order) {
             let sig = JK_now.order[i];
-            if (sig === JK_now.pass_in) {
-                ctx.fillText(JK_now.pass_val + " ->", 660.5, 50.5 + i*35)
+            if (i * 1 === 0) {
+                ctx.fillText(JK_now["inv_" + sig] * 1 + " ->", 660.5, 35.5 + i*35)
                 continue;
             }
             if (sig === "C") ctx.strokeStyle = "#fff";
             let add_c = sig === "C"? size/19:0;
-            draw_rect_signal(ctx, 30.5 - add_c/2, 50.5 + i*35, size + add_c, 10, JK_now["signal_" + sig.toLowerCase()]);
+            draw_rect_signal(ctx, 30.5 - add_c/2, 33.5 + i*40, size + add_c, 10, JK_now["signal_" + sig.toLowerCase()]);
             ctx.strokeStyle = "#000";
 
         }
@@ -38,7 +38,13 @@ const Test = () => {
         draw_JK(ctx, size + 50.5, 10.5, 80, 200, 10, [JK_now.inv_S, JK_now.inv_C, JK_now.inv_R], JK_now.order);
         ctx.beginPath(); // drawing dots
         for (let i = 0; i < 19; i++) {
-            ctx.arc(30.5 + (i + 1) * size/19 - size/19/4, 40.5, 2, 0, Math.PI * 2);
+            let cx = 30.5 + (i + 1) * size/19 - size/19/4;
+            let y1 =  60.5,
+                y2 = 212.5;
+            ctx.moveTo(cx, y1);
+            ctx.arc(cx, y1, 2, 0, Math.PI * 2);
+            ctx.moveTo(cx, y2)
+            ctx.arc(cx, y2, 2, 0, Math.PI * 2);
         }
         ctx.fill();
         ctx.beginPath(); // drawing dashed lines
