@@ -24,11 +24,11 @@ const Test = () => {
     };
 
     useEffect(() => {
-        let size = 660; // регулирует масштаб выводимых сигналов
         let cnv = document.querySelector("#cnv");
         cnv.width = cnv.parentNode.offsetWidth;
         cnv.height = cnv.parentNode.offsetHeight;
         let ctx = cnv.getContext("2d");
+        let size = cnv.width * 0.625; // регулирует масштаб выводимых сигналов
         for (let i in JK_now.order) {
             let sig = JK_now.order[i];
             if (i * 1 === 0) {
