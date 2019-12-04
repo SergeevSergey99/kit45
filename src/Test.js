@@ -17,8 +17,8 @@ const Test = () => {
         if (e.target.value.length < 16) {
             JK_now.generate(e.target.value);
             setVariant(e.target.value);
-            setAnswer(parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S}).join(""), 2).toString(16));
-            console.log(parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S}).join(""), 2).toString(16));
+            //setAnswer(parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"r": JK_now.inv_R, "c": JK_now.inv_C, "s": JK_now.inv_S}).join(""), 2).toString(16));
+            console.log(parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"r": JK_now.inv_R, "c": JK_now.inv_C, "s": JK_now.inv_S}).join(""), 2).toString(16));
         }
     };
 
@@ -26,7 +26,7 @@ const Test = () => {
         if (e.target.value.length < 7) setValue(e.target.value);
     };
     const submitAnswer = e => {
-        answer == value ? setVariantMessage("ВЕРНО!") : setVariantMessage("УВЫ!");
+        answer == parseInt(value, 16) ? setVariantMessage("ВЕРНО!") : setVariantMessage("УВЫ!");
     };
 
     useEffect(() => {
@@ -71,7 +71,7 @@ const Test = () => {
         }
         ctx.strokeStyle = "#0004";
         ctx.stroke();
-        setAnswer(parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S}).join(""), 2).toString(16));
+        setAnswer(parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"r": JK_now.inv_R, "c": JK_now.inv_C, "s": JK_now.inv_S}).join(""), 2));
    });
 
     return (
