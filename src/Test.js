@@ -8,7 +8,7 @@ import {JK_now} from "./generator.js";
 const Test = () => {
     const [value, setValue] = useState("");
     const [answer, setAnswer] = useState("");
-    const [variant, setVariant] = useState("2");
+    const [variant, setVariant] = useState(Math.floor(Math.random()*100000));
     const [variantMessage, setVariantMessage] = useState("");
 
     JK_now.generate(variant);
