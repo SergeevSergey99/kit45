@@ -15,9 +15,10 @@ const Test = () => {
 
     const changeVariant = e => {
         if (e.target.value.length < 16) {
+            if (e.target.value.indexOf(0) == 0) e.target.value = e.target.value.slice(1, e.target.value.length);
+            if (typeof e.target.value[0] === "undefined") e.target.value = 1;
             JK_now.generate(e.target.value);
             setVariant(e.target.value);
-            //setAnswer(parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"r": JK_now.inv_R, "c": JK_now.inv_C, "s": JK_now.inv_S}).join(""), 2).toString(16));
             console.log(parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"r": JK_now.inv_R, "c": JK_now.inv_C, "s": JK_now.inv_S}).join(""), 2).toString(16));
         }
     };
