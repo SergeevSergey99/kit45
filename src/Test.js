@@ -32,7 +32,7 @@ const Test = () => {
         for (let i in JK_now.order) {
             let sig = JK_now.order[i];
             if (i * 1 === 0) {
-                ctx.fillText(JK_now["inv_" + sig] * 1 + " ->", 660.5, 35.5 + i*35)
+                ctx.fillText(JK_now["inv_" + sig] * 1 + " ->", size + 10, 35.5 + i*35)
                 continue;
             }
             if (sig === "C") ctx.strokeStyle = "#fff";
