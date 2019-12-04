@@ -54,7 +54,7 @@ const Test = () => {
             ctx.arc(cx, y1, 2, 0, Math.PI * 2);
             ctx.moveTo(cx, y2)
             ctx.arc(cx, y2, 2, 0, Math.PI * 2);
-            ctx.fillText("ABCDEFGHIJKLMNOPQRS"[i], cx, yT)
+            ctx.fillText("ABCDEFGHIJKLMNOPQRS"[i], cx, yT);
         }
         ctx.fill();
         ctx.beginPath(); // drawing dashed lines
@@ -92,7 +92,7 @@ const Test = () => {
                         </div>
                         <div className="Answer">
                            <AnswerForm
-                               answer={parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S}).join(""), 2).toString(16)}/>
+                               answer={parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"r": JK_now.inv_R, "c": JK_now.inv_C, "s": JK_now.inv_S}).join(""), 2).toString(16)}/>
                         </div>
                     </div>
                     <div className="App-main-content-description">
