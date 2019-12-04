@@ -48,11 +48,13 @@ const Test = () => {
         for (let i = 0; i < 19; i++) {
             let cx = 30.5 + (i + 1) * size/19 - size/19/4;
             let y1 =  60.5,
-                y2 = 212.5;
+                y2 = 212.5,
+                yT = 50.5;
             ctx.moveTo(cx, y1);
             ctx.arc(cx, y1, 2, 0, Math.PI * 2);
             ctx.moveTo(cx, y2)
             ctx.arc(cx, y2, 2, 0, Math.PI * 2);
+            ctx.fillText("ABCDEFGHIJKLMNOPQRS"[i], cx, yT)
         }
         ctx.fill();
         ctx.beginPath(); // drawing dashed lines
