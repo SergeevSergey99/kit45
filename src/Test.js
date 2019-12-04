@@ -23,8 +23,8 @@ const Test = () => {
         let ctx = cnv.getContext("2d");
         for (let i in JK_now.order) {
             let sig = JK_now.order[i];
-            if (sig === JK_now.pass_in) {
-                ctx.fillText(JK_now.pass_val + " ->", 660.5, 50.5 + i*35)
+            if (i * 1 === 0) {
+                ctx.fillText(JK_now["inv_" + sig] * 1 + " ->", 660.5, 50.5 + i*35)
                 continue;
             }
             if (sig === "C") ctx.strokeStyle = "#fff";
