@@ -6,21 +6,27 @@ import {jk_array} from "./jk.js";
 import {JK_now} from "./generator.js";
 
 const Test = () => {
+    const [value, setValue] = useState("");
+    const [answer, setAnswer] = useState("");
     const [variant, setVariant] = useState("2");
+    const [variantMessage, setVariantMessage] = useState("");
 
     JK_now.generate(variant);
 
     const changeVariant = e => {
-        console.log(e.target.value.length);
-
-        if (e.target.value.length > 19) {
-            alert ("Введено максимальное количество символов!");
-        }
-        else {
+        if (e.target.value.length < 16) {
             JK_now.generate(e.target.value);
             setVariant(e.target.value);
+            setAnswer(parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S}).join(""), 2).toString(16));
+            console.log(parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S}).join(""), 2).toString(16));
         }
+    };
 
+    const changeValue = e => {
+        if (e.target.value.length < 7) setValue(e.target.value);
+    };
+    const submitAnswer = e => {
+        answer == value ? setVariantMessage("ВЕРНО!") : setVariantMessage("УВЫ!");
     };
 
     useEffect(() => {
@@ -63,6 +69,7 @@ const Test = () => {
         }
         ctx.strokeStyle = "#0004";
         ctx.stroke();
+        setAnswer(parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S}).join(""), 2).toString(16));
    });
 
     return (
@@ -90,7 +97,14 @@ const Test = () => {
                         </div>
                         <div className="Answer">
                            <AnswerForm
-                               answer={parseInt(jk_array(JK_now.signal_j, JK_now.signal_k, JK_now.signal_r, JK_now.signal_s, JK_now.signal_c, JK_now.q, {"inv_r": JK_now.inv_R, "inv_c": JK_now.inv_C, "inv_s": JK_now.inv_S}).join(""), 2).toString(16)}/>
+                               answer={answer}
+                               changeValue={changeValue}
+                               value={value}
+                               submitAnswer={submitAnswer}
+                               />
+                        </div>
+                        <div className="VariantMessage">
+                            <p>{variantMessage}</p>
                         </div>
                     </div>
                     <div className="App-main-content-description">
@@ -107,25 +121,16 @@ const Test = () => {
 
 const VariantForm = ({variant, changeVariant}) => (
     <div className="VariantContent">
-       <div><b>сюда можно ввести свой вариант</b></div>
+       <div><b>ВВЕДИ ВАРИАНТ!</b></div>
         <input type="number" value={variant} onChange={changeVariant} min="1"/>
     </div>
 );
 
-const AnswerForm = ({answer, submitVariant, changeVariant}) => {
-    const [value, setValue] = useState("");
-    const submitAnswer = e => {
-        answer == value ? alert("Верно!") : alert("Не получилось!");
-    };
-
-    const changeAnswer = e => {
-        setValue(e.target.value);
-    };
-
+const AnswerForm = ({answer, value, changeValue, submitAnswer}) => {
     return (
         <div className="AnswerForm">
-            <input type="text" value={value} onChange={changeAnswer} min="1"/>
-            <button onClick={submitAnswer}> {answer} </button>
+            <input type="text" value={value} onChange={changeValue} placeholder="Каков ответ?"/>
+            <button onClick={submitAnswer}> Давай! </button>
         </div>
     );
 }
