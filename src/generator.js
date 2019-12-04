@@ -16,7 +16,10 @@ class JK_Trigger {
     }
 
     generate(variant) {
-        this.signal_c = Rand_of_var(variant + 0 ** 2, 20);
+
+
+        this.signal_c = "1010101010101010101010";
+        this.signal_c = delete_from_signal(variant + 1 ** 3, this.signal_c);
         this.signal_j = Rand_of_var(variant + 1 ** 2);
         this.signal_k = Rand_of_var(variant + 2 ** 2);
         //this.signal_r = Rand_of_var(variant + 3 ** 2);
@@ -64,7 +67,17 @@ class JK_Trigger {
 
 
 }
+function delete_from_signal(variant, signal, n = 2, super_const = 3){
+    //СУПЕР КОНСТАНТА НЕСОСЕДНИХ ЭЛЕМЕНТОВ
+    let j = 0;
+    for (let i = 0; i < n; i++)
+    {
+        j += Math.floor(Math.abs(Math.sin(variant + 15 + 71 * i)) * 10000) % 5 + super_const;
+        signal = signal.slice(0, j) + signal.slice(j+1);
+    }
 
+    return signal;
+}
 /**
  * @return {string}
  */
