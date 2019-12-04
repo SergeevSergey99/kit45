@@ -24,12 +24,12 @@ const Test = () => {
         for (let i in JK_now.order) {
             let sig = JK_now.order[i];
             if (i * 1 === 0) {
-                ctx.fillText(JK_now["inv_" + sig] * 1 + " ->", 660.5, 50.5 + i*35)
+                ctx.fillText(JK_now["inv_" + sig] * 1 + " ->", 660.5, 35.5 + i*35)
                 continue;
             }
             if (sig === "C") ctx.strokeStyle = "#fff";
             let add_c = sig === "C"? size/19:0;
-            draw_rect_signal(ctx, 30.5 - add_c/2, 50.5 + i*35, size + add_c, 10, JK_now["signal_" + sig.toLowerCase()]);
+            draw_rect_signal(ctx, 30.5 - add_c/2, 33.5 + i*40, size + add_c, 10, JK_now["signal_" + sig.toLowerCase()]);
             ctx.strokeStyle = "#000";
 
         }
