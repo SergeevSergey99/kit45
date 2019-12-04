@@ -135,6 +135,7 @@
     border: 1px solid black;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 }
 
 .App-main-content-description p:first-child {

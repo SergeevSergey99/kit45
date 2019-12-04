@@ -11,20 +11,28 @@ const Test = () => {
     JK_now.generate(variant);
 
     const changeVariant = e => {
-        JK_now.generate(e.target.value);
-        setVariant(e.target.value);
+        console.log(e.target.value.length);
+
+        if (e.target.value.length > 19) {
+            alert ("Введено максимальное количество символов!");
+        }
+        else {
+            JK_now.generate(e.target.value);
+            setVariant(e.target.value);
+        }
+
     };
 
     useEffect(() => {
-        let size = 660; // регулирует масштаб выводимых сигналов
         let cnv = document.querySelector("#cnv");
         cnv.width = cnv.parentNode.offsetWidth;
         cnv.height = cnv.parentNode.offsetHeight;
         let ctx = cnv.getContext("2d");
+        let size = cnv.width * 0.625; // регулирует масштаб выводимых сигналов
         for (let i in JK_now.order) {
             let sig = JK_now.order[i];
             if (i * 1 === 0) {
-                ctx.fillText(JK_now["inv_" + sig] * 1 + " ->", 660.5, 35.5 + i*35)
+                ctx.fillText(JK_now["inv_" + sig] * 1 + " ->", size + 10, 35.5 + i*35)
                 continue;
             }
             if (sig === "C") ctx.strokeStyle = "#fff";
@@ -86,6 +94,7 @@ const Test = () => {
                         </div>
                     </div>
                     <div className="App-main-content-description">
+
                         <p>В отмеченные моменты времени найдите 19 значений на выходе JK триггера при заданных временных диаграммах на входах C,J,K и R. Начальное значение Q&nbsp;=&nbsp;{JK_now.q * 1}. Ответ дайте в HEX коде.</p>
                         <p>Пример ответа: 9DB94. Обратите внимание на тип входов S,R,C.</p>
                     </div>
