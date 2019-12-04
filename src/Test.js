@@ -12,7 +12,7 @@ const Test = () => {
     const [variantMessage, setVariantMessage] = useState("");
 
     JK_now.generate(variant);
-
+//
     const changeVariant = e => {
         if (e.target.value.length < 16) {
             if (e.target.value.indexOf(0) == 0) e.target.value = e.target.value.slice(1, e.target.value.length);
