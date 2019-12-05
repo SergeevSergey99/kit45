@@ -10,6 +10,7 @@ const Test = () => {
     const [answer, setAnswer] = useState("");
     const [variant, setVariant] = useState(Math.floor(Math.random()*100000));
     const [variantMessage, setVariantMessage] = useState("");
+    const DEBUG = true;
 
     JK_now.generate(variant);
 //
@@ -31,6 +32,9 @@ const Test = () => {
     };
 
     useEffect(() => {
+        if (DEBUG) { 
+            setValue(answer.toString(16));
+        }
         let cnv = document.querySelector("#cnv");
         cnv.width = cnv.parentNode.offsetWidth;
         cnv.height = cnv.parentNode.offsetHeight;
