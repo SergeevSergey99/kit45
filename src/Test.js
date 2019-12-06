@@ -10,6 +10,7 @@ const Test = () => {
     const [answer, setAnswer] = useState("");
     const [variant, setVariant] = useState(Math.floor(Math.random()*100000));
     const [variantMessage, setVariantMessage] = useState("");
+    const DEBUG = true;
 
     JK_now.generate(variant);
 //
@@ -31,14 +32,17 @@ const Test = () => {
     };
 
     useEffect(() => {
+        if (DEBUG) { 
+            setValue(answer.toString(16));
+        }
         let cnv = document.querySelector("#cnv");
         cnv.width = cnv.parentNode.offsetWidth;
         cnv.height = cnv.parentNode.offsetHeight;
         let ctx = cnv.getContext("2d");
         let size = cnv.width * 0.825; // регулирует масштаб выводимых сигналов
-        let order_str = JK_now.order[0] + "CJK" + JK_now.order[4];
+        JK_now.order = JK_now.order[0] + "CJK" + JK_now.order[4];
         for (let i in JK_now.order) {
-            let sig = order_str[i];
+            let sig = JK_now.order[i];
             if (i * 1 === 0) {
                 ctx.fillText(JK_now["inv_" + sig] * 1 + " ->", size + 10, 35.5 + i*35)
                 continue;
